@@ -34,7 +34,7 @@ class OCRService
 
             if ($birthdateIdentidata !== $birthdateRequest) {
                 $signatureRequest->histories()->create([
-                    'description' => 'La fecha de nacimiento no coincide por favor revisela.',
+                    'description' => 'Fecha de nacimiento no coincide.',
                 ]);
                 return false;
             }

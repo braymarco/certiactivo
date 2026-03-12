@@ -56,13 +56,14 @@ class Dashscope
             'messages' => [
                 ['role' => 'user', 'content' => $content],
             ],
+            'response_format' => [
+                'type' => 'json_object'
+            ]
         ]);
 
         $raw = $response->choices[0]->message->content;
 
-        $clean = preg_replace('/```json|```/', '', $raw);
-        $data = json_decode(trim($clean), true);
-
+        $data = json_decode($raw, true);
         if (json_last_error() !== JSON_ERROR_NONE) {
             throw new RuntimeException("Respuesta inválida del modelo: {$raw}");
         }
