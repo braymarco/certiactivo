@@ -8,6 +8,7 @@ use App\Models\SignatureRequest;
 use App\Enums\DocumentTypes;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Str;
+use Log;
 use Throwable;
 
 class OCRService
@@ -23,7 +24,7 @@ class OCRService
             $nombreRequest = Str::lower(trim("$signatureRequest->nombres $signatureRequest->apellido1 $signatureRequest->apellido2"));
             $nombreIdentidata = Str::lower(trim($personData->fullName));
 
-            dump([
+            Log::info("OCRService",[
                 'identidata' => [
                     'birthdateRequest' => $birthdateRequest,
                     'birthdateIdentidata' => $birthdateIdentidata,
@@ -73,7 +74,7 @@ class OCRService
         $fechaRequest = Carbon::parse($signatureRequest->fecha_nacimiento)->toDateString();
         $fechaOcr = Carbon::parse($ocr['fechaNacimiento'])->toDateString();
 
-        dump([
+        Log::info("OCRService",[
             'ocr' => [
                 'nroDocumentoOcr' => $nroDocumento,
                 'nroDocumentoRequest' => $signatureRequest->nro_documento,
